@@ -8,7 +8,7 @@
 export const clients = [
   {
     name: "Junie",
-    description: "Junie is an LLM-agnostic coding agent built for real-world development. It is built on top of the IntelliJ Platform, so it understands your project the same way your editor does.",
+    description: "Junie 是一款面向真实世界开发场景构建的、与 LLM 无关的编码代理。它建立在 IntelliJ Platform 之上，因此能像你的编辑器一样理解你的项目。",
     url: "https://junie.jetbrains.com/",
     lightSrc: "/images/logos/junie/junie-logo-on-white.svg",
     darkSrc: "/images/logos/junie/junie-logo-on-dark.svg",
@@ -16,7 +16,7 @@ export const clients = [
   },
   {
     name: "Gemini CLI",
-    description: "Gemini CLI is an open-source AI agent that brings the power of Gemini directly into your terminal.",
+    description: "Gemini CLI 是一个开源 AI 代理，可将 Gemini 的能力直接带入你的终端。",
     url: "https://geminicli.com",
     lightSrc: "/images/logos/gemini-cli/gemini-cli-logo_light.svg",
     darkSrc: "/images/logos/gemini-cli/gemini-cli-logo_dark.svg",
@@ -25,7 +25,7 @@ export const clients = [
   },
   {
     name: "Autohand Code CLI",
-    description: "Autohand Code CLI is an autonomous LLM-powered coding agent that lives in your terminal. It uses the ReAct (Reason + Act) pattern to understand your codebase, plan changes, and execute them with your approval.",
+    description: "Autohand Code CLI 是一个由 LLM 驱动的自主编码代理，运行在你的终端中。它使用 ReAct（Reason + Act，思考 + 行动）模式来理解你的代码库、规划变更，并在你的批准下执行这些变更。",
     url: "https://autohand.ai/",
     lightSrc: "/images/logos/autohand/autohand-light.svg",
     darkSrc: "/images/logos/autohand/autohand-dark.svg",
@@ -35,7 +35,7 @@ export const clients = [
   },
   {
     name: "OpenCode",
-    description: "OpenCode is an open source agent that helps you write code in your terminal, IDE, or desktop.",
+    description: "OpenCode 是一个开源代理，可帮助你在终端、IDE 或桌面环境中编写代码。",
     url: "https://opencode.ai/",
     lightSrc: "/images/logos/opencode/opencode-wordmark-light.svg",
     darkSrc: "/images/logos/opencode/opencode-wordmark-dark.svg",
@@ -44,7 +44,7 @@ export const clients = [
   },
   {
     name: "OpenHands",
-    description: "OpenHands is the open platform for cloud coding agents. Scale from one to thousands of agents — open source, model-agnostic, and enterprise-ready.",
+    description: "OpenHands 是面向云端编码代理的开放平台。它可以从一个代理扩展到成千上万个代理，开源、与模型无关，并且支持企业级使用。",
     url: "https://openhands.dev/",
     lightSrc: "/images/logos/openhands/openhands-logo-light.svg",
     darkSrc: "/images/logos/openhands/openhands-logo-dark.svg",
@@ -53,7 +53,7 @@ export const clients = [
   },
   {
     name: "Mux",
-    description: "Mux makes it easy to run parallel coding agents, each with its own isolated workspace, right from your browser or desktop. Mux is open source and LLM provider-agnostic.",
+    description: "Mux 让你可以轻松并行运行多个编码代理，每个代理都拥有自己隔离的工作区，直接在浏览器或桌面端即可操作。Mux 是开源的，并且与 LLM 提供商无关。",
     url: "https://mux.coder.com/",
     lightSrc: "/images/logos/mux/mux-editor-light.svg",
     darkSrc: "/images/logos/mux/mux-editor-dark.svg",
@@ -63,7 +63,7 @@ export const clients = [
   },
   {
     name: "Cursor",
-    description: "Cursor is an AI editor and coding agent. Use it to understand your codebase, plan and build features, fix bugs, review changes, and work with the tools you already use.",
+    description: "Cursor 是一款 AI 编辑器和编码代理。你可以用它来理解代码库、规划并构建功能、修复漏洞、审查变更，并与现有工具协同工作。",
     url: "https://cursor.com/",
     lightSrc: "/images/logos/cursor/LOCKUP_HORIZONTAL_2D_LIGHT.svg",
     darkSrc: "/images/logos/cursor/LOCKUP_HORIZONTAL_2D_DARK.svg",
@@ -71,7 +71,7 @@ export const clients = [
   },
   {
     name: "Amp",
-    description: "Amp is the frontier coding agent that lets you wield the full power of leading models.",
+    description: "Amp 是前沿编码代理，让你能够充分发挥领先模型的全部能力。",
     url: "https://ampcode.com/",
     lightSrc: "/images/logos/amp/amp-logo-light.svg",
     darkSrc: "/images/logos/amp/amp-logo-dark.svg",
@@ -80,7 +80,7 @@ export const clients = [
   },
   {
     name: "Letta",
-    description: "Letta is the platform for building stateful agents: AI with advanced memory that can learn and self-improve over time.",
+    description: "Letta 是用于构建有状态代理的平台：具备高级记忆能力的 AI，能够随着时间推移不断学习并自我改进。",
     url: "https://www.letta.com/",
     lightSrc: "/images/logos/letta/Letta-logo-RGB_OffBlackonTransparent.svg",
     darkSrc: "/images/logos/letta/Letta-logo-RGB_GreyonTransparent.svg",
@@ -89,7 +89,7 @@ export const clients = [
   },
   {
     name: "Firebender",
-    description: "Firebender is the first Android-native coding agent that writes features, tests them in the emulator, and fixes issues automatically.",
+    description: "Firebender 是首个 Android 原生编码代理，能够编写功能、在模拟器中测试，并自动修复问题。",
     url: "https://firebender.com/",
     lightSrc: "/images/logos/firebender/firebender-wordmark-light.svg",
     darkSrc: "/images/logos/firebender/firebender-wordmark-dark.svg",
@@ -97,7 +97,7 @@ export const clients = [
   },
   {
     name: "Goose",
-    description: "Goose is an open source, extensible AI agent that goes beyond code suggestions — install, execute, edit, and test with any LLM.",
+    description: "Goose 是一个开源、可扩展的 AI 代理，能力不止于代码建议，还可以配合任何 LLM 执行安装、运行、编辑和测试。",
     url: "https://block.github.io/goose/",
     lightSrc: "/images/logos/goose/goose-logo-black.png",
     darkSrc: "/images/logos/goose/goose-logo-white.png",
@@ -106,7 +106,7 @@ export const clients = [
   },
   {
     name: "GitHub Copilot",
-    description: "GitHub Copilot works alongside you directly in your editor, suggesting whole lines or entire functions for you.",
+    description: "GitHub Copilot 直接在你的编辑器中与你协作，为你提供整行甚至整个函数的建议。",
     url: "https://github.com/",
     lightSrc: "/images/logos/github/GitHub_Lockup_Dark.svg",
     darkSrc: "/images/logos/github/GitHub_Lockup_Light.svg",
@@ -115,7 +115,7 @@ export const clients = [
   },
   {
     name: "VS Code",
-    description: "Visual Studio Code combines the simplicity of a code editor with what developers need for their core edit-build-debug cycle.",
+    description: "Visual Studio Code 将代码编辑器的简洁性与开发者在核心编辑、构建、调试循环中所需的能力结合在一起。",
     url: "https://code.visualstudio.com/",
     lightSrc: "/images/logos/vscode/vscode.svg",
     darkSrc: "/images/logos/vscode/vscode-alt.svg",
@@ -124,7 +124,7 @@ export const clients = [
   },
   {
     name: "Claude Code",
-    description: "Claude Code is an agentic coding tool that reads your codebase, edits files, runs commands, and integrates with your development tools. Available in your terminal, IDE, desktop app, and browser.",
+    description: "Claude Code 是一款代理式编码工具，可以读取你的代码库、编辑文件、运行命令，并与你的开发工具集成。可在终端、IDE、桌面应用和浏览器中使用。",
     url: "https://claude.ai/code",
     lightSrc: "/images/logos/claude-code/Claude-Code-logo-Slate.svg",
     darkSrc: "/images/logos/claude-code/Claude-Code-logo-Ivory.svg",
@@ -132,7 +132,7 @@ export const clients = [
   },
   {
     name: "Claude",
-    description: "Claude is Anthropic's AI, built for problem solvers. Tackle complex challenges, analyze data, write code, and think through your hardest work.",
+    description: "Claude 是 Anthropic 的 AI，专为解决问题的人打造。你可以用它应对复杂挑战、分析数据、编写代码，并梳理最棘手的工作。",
     url: "https://claude.ai/",
     lightSrc: "/images/logos/claude-ai/Claude-logo-Slate.svg",
     darkSrc: "/images/logos/claude-ai/Claude-logo-Ivory.svg",
@@ -140,7 +140,7 @@ export const clients = [
   },
   {
     name: "OpenAI Codex",
-    description: "Codex is OpenAI's coding agent for software development.",
+    description: "Codex 是 OpenAI 面向软件开发的编码代理。",
     url: "https://developers.openai.com/codex",
     lightSrc: "/images/logos/oai-codex/OAI_Codex-Lockup_400px.svg",
     darkSrc: "/images/logos/oai-codex/OAI_Codex-Lockup_400px_Darkmode.svg",
@@ -149,14 +149,14 @@ export const clients = [
   },
   {
     name: "Piebald",
-    description: "Piebald is a desktop & web app that makes it easier than ever to do agentic development, while at the same time giving you complete control over the configuration, context, and flow.",
+    description: "Piebald 是一款桌面和网页应用，让代理式开发变得前所未有地轻松，同时仍让你完全掌控配置、上下文和流程。",
     url: "https://piebald.ai",
     lightSrc: "/images/logos/piebald/Piebald_wordmark_light.svg",
     darkSrc: "/images/logos/piebald/Piebald_wordmark_dark.svg",
   },
   {
     name: "Factory",
-    description: "Factory is an AI-native software development platform that works everywhere you do. From IDE to CI/CD — delegate complete tasks like refactors, incident response, and migrations to Droids without changing your tools, models, or workflow.",
+    description: "Factory 是一个 AI 原生的软件开发平台，能在你工作的任何地方运行。从 IDE 到 CI/CD，你都可以把重构、事件响应和迁移等完整任务委派给 Droids，而无需更换工具、模型或工作流。",
     url: "https://factory.ai/",
     lightSrc: "/images/logos/factory/factory-logo-light.svg",
     darkSrc: "/images/logos/factory/factory-logo-dark.svg",
@@ -164,7 +164,7 @@ export const clients = [
   },
   {
     name: "pi",
-    description: "Pi is a minimal terminal coding harness. Adapt pi to your workflows, not the other way around.",
+    description: "Pi 是一个极简的终端编码框架。让 pi 适应你的工作流，而不是反过来。",
     url: "https://shittycodingagent.ai/",
     lightSrc: "/images/logos/pi/pi-logo-light.svg",
     darkSrc: "/images/logos/pi/pi-logo-dark.svg",
@@ -174,7 +174,7 @@ export const clients = [
   },
   {
     name: "Databricks Genie Code",
-    description: "Genie Code is an autonomous AI partner purpose-built for data work in Databricks.",
+    description: "Genie Code 是专为 Databricks 中的数据工作打造的自主 AI 伙伴。",
     url: "https://databricks.com/",
     lightSrc: "/images/logos/databricks/databricks-logo-light.svg",
     darkSrc: "/images/logos/databricks/databricks-logo-dark.svg",
@@ -182,7 +182,7 @@ export const clients = [
   },
   {
     name: "Agentman",
-    description: "Agentman is an agentic healthcare platform. It automates revenue cycle workflows using AI agents without sacrificing control. Every action is testable, traceable, and auditable.",
+    description: "Agentman 是一个代理式医疗平台。它使用 AI 代理自动化收入周期工作流，同时不牺牲控制力。每个操作都可测试、可追踪、可审计。",
     url: "https://agentman.ai/",
     lightSrc: "/images/logos/agentman/agentman-wordmark-light.svg",
     darkSrc: "/images/logos/agentman/agentman-wordmark-dark.svg",
@@ -190,7 +190,7 @@ export const clients = [
   },
   {
     name: "TRAE",
-    description: "Trae is an adaptive AI IDE that transforms how you work, collaborating with you to run faster.",
+    description: "Trae 是一款自适应 AI IDE，重新定义你的工作方式，并与你协作以更快地推进工作。",
     url: "https://trae.ai/",
     lightSrc: "/images/logos/trae/trae-logo-lightmode.svg",
     darkSrc: "/images/logos/trae/trae-logo-darkmode.svg",
@@ -199,7 +199,7 @@ export const clients = [
   },
   {
     name: "Spring AI",
-    description: "Spring AI aims to streamline the development of applications that incorporate artificial intelligence functionality without unnecessary complexity.",
+    description: "Spring AI 旨在简化集成人工智能功能的应用开发，避免不必要的复杂性。",
     url: "https://docs.spring.io/spring-ai/reference",
     lightSrc: "/images/logos/spring-ai/spring-ai-logo-light.svg",
     darkSrc: "/images/logos/spring-ai/spring-ai-logo-dark.svg",
@@ -208,7 +208,7 @@ export const clients = [
   },
   {
     name: "Roo Code",
-    description: "Roo Code puts an entire AI dev team right in your editor, outpacing closed tools with deep project-wide context, multi-step agentic coding, and unmatched developer-centric flexibility.",
+    description: "Roo Code 将一整支 AI 开发团队直接带到你的编辑器中，凭借深度的项目级上下文、多步骤代理式编码和无与伦比的开发者灵活性，超越封闭式工具。",
     url: "https://roocode.com",
     lightSrc: "/images/logos/roo-code/roo-code-logo-black.svg",
     darkSrc: "/images/logos/roo-code/roo-code-logo-white.svg",
@@ -217,7 +217,7 @@ export const clients = [
   },
   {
     name: "Mistral AI Vibe",
-    description: "Mistral Vibe is a command-line coding assistant powered by Mistral's models. It provides a conversational interface to your codebase, allowing you to use natural language to explore, modify, and interact with your projects through a powerful set of tools.",
+    description: "Mistral Vibe 是一款由 Mistral 模型驱动的命令行编码助手。它为你的代码库提供对话式界面，让你可以通过一套强大的工具，使用自然语言探索、修改并与你的项目交互。",
     url: "https://github.com/mistralai/mistral-vibe",
     lightSrc: "/images/logos/mistral-vibe/vibe-logo_black.svg",
     darkSrc: "/images/logos/mistral-vibe/vibe-logo_white.svg",
@@ -227,7 +227,7 @@ export const clients = [
   },
   {
     name: "Command Code",
-    description: "Command Code is a coding agent that continuously learns your coding taste. Our meta neuro-symbolic AI model taste-1 with continuous reinforcement learning combines LLMs with your coding taste.",
+    description: "Command Code 是一款会持续学习你编码风格的编码代理。我们的元神经符号 AI 模型 taste-1 结合持续强化学习，将 LLM 与你的编码偏好融合在一起。",
     url: "https://commandcode.ai/",
     lightSrc: "/images/logos/command-code/command-code-logo-for-light.svg",
     darkSrc: "/images/logos/command-code/command-code-logo-for-dark.svg",
@@ -236,7 +236,7 @@ export const clients = [
   },
   {
     name: "Ona",
-    description: "Ona is a platform for background agents. Run a team of AI software engineers in the cloud. Orchestrated, governed, secured at the kernel.",
+    description: "Ona 是一个面向后台代理的平台。你可以在云端运行一支 AI 软件工程师团队，具备编排、治理和内核级安全保障。",
     url: "https://ona.com",
     lightSrc: "/images/logos/ona/ona-wordmark-light.svg",
     darkSrc: "/images/logos/ona/ona-wordmark-dark.svg",
@@ -245,7 +245,7 @@ export const clients = [
   },
   {
     name: "VT Code",
-    description: "VT Code is an open-source coding agent with LLM-native code understanding and robust shell safety. Supports multiple LLM providers with automatic failover and efficient context management.",
+    description: "VT Code 是一个开源编码代理，具备 LLM 原生的代码理解能力和健壮的 Shell 安全机制。它支持多个 LLM 提供商，具备自动故障切换和高效的上下文管理。",
     url: "https://github.com/vinhnx/vtcode",
     lightSrc: "/images/logos/vtcode/vt_code_light.svg",
     darkSrc: "/images/logos/vtcode/vt_code_dark.svg",
@@ -254,7 +254,7 @@ export const clients = [
   },
   {
     name: "Qodo",
-    description: "Qodo is an agentic code integrity platform for reviewing, testing, and writing code, integrating AI across development workflows to strengthen code quality at every stage.",
+    description: "Qodo 是一个代理式代码质量平台，用于审查、测试和编写代码，并将 AI 融入整个开发工作流，以在每个阶段提升代码质量。",
     url: "https://www.qodo.ai/",
     lightSrc: "/images/logos/qodo/qodo-logo-light.png",
     darkSrc: "/images/logos/qodo/qodo-logo-dark.svg",
@@ -262,7 +262,7 @@ export const clients = [
   },
   {
     name: "Laravel Boost",
-    description: "Laravel Boost accelerates AI-assisted development by providing the essential guidelines and agent skills that help AI agents write high-quality Laravel applications that adhere to Laravel best practices.",
+    description: "Laravel Boost 通过提供必要的规范和代理技能来加速 AI 辅助开发，帮助 AI 代理编写符合 Laravel 最佳实践的高质量 Laravel 应用。",
     url: "https://github.com/laravel/boost",
     lightSrc: "/images/logos/laravel-boost/boost-light-mode.svg",
     darkSrc: "/images/logos/laravel-boost/boost-dark-mode.svg",
@@ -271,7 +271,7 @@ export const clients = [
   },
   {
     name: "Emdash",
-    description: "Emdash is a provider-agnostic desktop app that lets you run multiple coding agents in parallel, each isolated in its own git worktree, either locally or over SSH on a remote machine.",
+    description: "Emdash 是一款与提供商无关的桌面应用，可让你并行运行多个编码代理，每个代理都隔离在各自的 git worktree 中，既可本地运行，也可通过 SSH 在远程机器上运行。",
     url: "https://emdash.sh",
     lightSrc: "/images/logos/emdash/emdash-logo-light.svg",
     darkSrc: "/images/logos/emdash/emdash-logo-dark.svg",
@@ -280,7 +280,7 @@ export const clients = [
   },
   {
     name: "Snowflake Cortex Code",
-    description: "Cortex Code is an AI-driven intelligent agent integrated into the Snowflake platform, optimized for complex data engineering, analytics, machine learning, and agent-building tasks.",
+    description: "Cortex Code 是集成到 Snowflake 平台中的 AI 驱动智能代理，专为复杂的数据工程、分析、机器学习以及代理构建任务进行优化。",
     url: "https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code",
     lightSrc: "/images/logos/snowflake/snowflake-logo-light.svg",
     darkSrc: "/images/logos/snowflake/snowflake-logo-dark.svg",
@@ -288,7 +288,7 @@ export const clients = [
   },
   {
     name: "Kiro",
-    description: "Kiro helps you do your best work by bringing structure to AI coding with spec-driven development.",
+    description: "Kiro 通过以规格驱动的开发为 AI 编码引入结构，帮助你发挥最佳水平。",
     url: "https://kiro.dev/",
     lightSrc: "/images/logos/kiro/kiro-logo-light.svg",
     darkSrc: "/images/logos/kiro/kiro-logo-dark.svg",

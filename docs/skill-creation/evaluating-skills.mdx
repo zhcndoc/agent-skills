@@ -1,20 +1,20 @@
 ---
-title: "Evaluating skill output quality"
-sidebarTitle: "Evaluating skills"
-description: "How to test whether your skill produces good outputs using eval-driven iteration."
+title: "评估技能输出质量"
+sidebarTitle: "评估技能"
+description: "如何使用评估驱动的迭代来测试你的技能是否产生良好的输出。"
 ---
 
-You wrote a skill, tried it on a prompt, and it seemed to work. But does it work reliably — across varied prompts, in edge cases, better than no skill at all? Running structured evaluations (evals) answers these questions and gives you a feedback loop for improving the skill systematically.
+你编写了一个技能，在一个提示词上进行了尝试，它似乎有效。但它是否可靠地工作——在各种提示词下、在边界情况中、比根本没有技能更好？运行结构化评估（evals）可以回答这些问题，并为你提供一个系统改进技能的反馈循环。
 
-## Designing test cases
+## 设计测试用例
 
-A test case has three parts:
+一个测试用例包含三个部分：
 
-- **Prompt**: a realistic user message — the kind of thing someone would actually type.
-- **Expected output**: a human-readable description of what success looks like.
-- **Input files** (optional): files the skill needs to work with.
+- **提示词**：一个真实的用户消息——某人实际会输入的内容。
+- **预期输出**：关于成功样子的可读描述。
+- **输入文件**（可选）：技能需要处理的文件。
 
-Store test cases in `evals/evals.json` inside your skill directory:
+将测试用例存储在你的技能目录内的 `evals/evals.json` 中：
 
 ```json evals/evals.json
 {
@@ -36,22 +36,22 @@ Store test cases in `evals/evals.json` inside your skill directory:
 }
 ```
 
-**Tips for writing good test prompts:**
+**编写良好测试提示词的技巧：**
 
-- **Start with 2-3 test cases.** Don't over-invest before you've seen your first round of results. You can expand the set later.
-- **Vary the prompts.** Use different phrasings, levels of detail, and formality. Some prompts should be casual ("hey can you clean up this csv"), others precise ("Parse the CSV at data/input.csv, drop rows where column B is null, and write the result to data/output.csv").
-- **Cover edge cases.** Include at least one prompt that tests a boundary condition — a malformed input, an unusual request, or a case where the skill's instructions might be ambiguous.
-- **Use realistic context.** Real users mention file paths, column names, and personal context. Prompts like "process this data" are too vague to test anything useful.
+- **从 2-3 个测试用例开始。** 在看到第一轮结果之前不要过度投入。你可以稍后扩展集合。
+- **变化提示词。** 使用不同的措辞、详细程度和正式程度。有些提示词应该随意（“嘿，你能清理一下这个 csv 吗”），有些应该精确（“解析 data/input.csv 处的 CSV，丢弃列 B 为 null 的行，并将结果写入 data/output.csv"）。
+- **覆盖边界情况。** 包含至少一个测试边界条件的提示词——格式错误的输入、不寻常的请求，或技能指令可能模糊的情况。
+- **使用真实的上下文。** 真实用户会提到文件路径、列名和个人上下文。像“处理这个数据”这样的提示词太模糊，无法测试任何有用的东西。
 
-Don't worry about defining specific pass/fail checks yet — just the prompts and expected outputs. You'll add detailed checks (called assertions) after you see what the first run produces.
+暂时不用担心定义具体的通过/失败检查——只需提示词和预期输出。在你看到第一次运行产生什么之后，你将添加详细的检查（称为断言）。
 
-## Running evals
+## 运行评估
 
-The core pattern is to run each test case twice: once **with the skill** and once **without it** (or with a previous version). This gives you a baseline to compare against.
+核心模式是将每个测试用例运行两次：一次**使用技能**，一次**不使用它**（或使用旧版本）。这为你提供了一个比较的基线。
 
-### Workspace structure
+### 工作区结构
 
-Organize eval results in a workspace directory alongside your skill directory. Each pass through the full eval loop gets its own `iteration-N/` directory. Within that, each test case gets an eval directory with `with_skill/` and `without_skill/` subdirectories:
+在你的技能目录旁边的工作区目录中组织评估结果。每次通过完整的评估循环都会有自己的 `iteration-N/` 目录。在其中，每个测试用例都有一个评估目录，包含 `with_skill/` 和 `without_skill/` 子目录：
 
 ```
 csv-analyzer/
@@ -62,9 +62,9 @@ csv-analyzer-workspace/
 └── iteration-1/
     ├── eval-top-months-chart/
     │   ├── with_skill/
-    │   │   ├── outputs/       # Files produced by the run
-    │   │   ├── timing.json    # Tokens and duration
-    │   │   └── grading.json   # Assertion results
+    │   │   ├── outputs/       # 运行产生的文件
+    │   │   ├── timing.json    # Token 数和持续时间
+    │   │   └── grading.json   # 断言结果
     │   └── without_skill/
     │       ├── outputs/
     │       ├── timing.json
@@ -78,23 +78,23 @@ csv-analyzer-workspace/
     │       ├── outputs/
     │       ├── timing.json
     │       └── grading.json
-    └── benchmark.json         # Aggregated statistics
+    └── benchmark.json         # 聚合统计
 ```
 
-The main file you author by hand is `evals/evals.json`. The other JSON files (`grading.json`, `timing.json`, `benchmark.json`) are produced during the eval process — by the agent, by scripts, or by you.
+你手动编写的主要文件是 `evals/evals.json`。其他 JSON 文件（`grading.json`、`timing.json`、`benchmark.json`）是在评估过程中产生的——由智能体、脚本或你生成。
 
-### Spawning runs
+### 启动运行
 
-Each eval run should start with a clean context — no leftover state from previous runs or from the skill development process. This ensures the agent follows only what the `SKILL.md` tells it. In environments that support subagents (Claude Code, for example), this isolation comes naturally: each child task starts fresh. Without subagents, use a separate session for each run.
+每次评估运行都应该从干净的上下文开始——没有来自先前运行或技能开发过程的遗留状态。这确保智能体只遵循 `SKILL.md` 告诉它的内容。在支持子智能体的环境中（例如 Claude Code），这种隔离是自然的：每个子任务都是从头开始。如果没有子智能体，为每次运行使用单独的会话。
 
-For each run, provide:
+对于每次运行，提供：
 
-- The skill path (or no skill for the baseline)
-- The test prompt
-- Any input files
-- The output directory
+- 技能路径（基线则无技能）
+- 测试提示词
+- 任何输入文件
+- 输出目录
 
-Here's an example of the instructions you'd give the agent for a single with-skill run:
+以下是你为单次使用技能运行提供给智能体的指令示例：
 
 ```
 Execute this task:
@@ -105,13 +105,13 @@ Execute this task:
 - Save outputs to: csv-analyzer-workspace/iteration-1/eval-top-months-chart/with_skill/outputs/
 ```
 
-For the baseline, use the same prompt but without the skill path, saving to `without_skill/outputs/`.
+对于基线，使用相同的提示词但不带技能路径，保存到 `without_skill/outputs/`。
 
-When improving an existing skill, use the previous version as your baseline. Snapshot it before editing (`cp -r <skill-path> <workspace>/skill-snapshot/`), point the baseline run at the snapshot, and save to `old_skill/outputs/` instead of `without_skill/`.
+当改进现有技能时，使用旧版本作为基线。在编辑之前对其进行快照（`cp -r <skill-path> <workspace>/skill-snapshot/`），将基线运行指向快照，并保存到 `old_skill/outputs/` 而不是 `without_skill/`。
 
-### Capturing timing data
+### 捕获计时数据
 
-Timing data lets you compare how much time and tokens the skill costs relative to the baseline — a skill that dramatically improves output quality but triples token usage is a different trade-off than one that's both better and cheaper. When each run completes, record the token count and duration:
+计时数据让你可以比较技能相对于基线消耗了多少时间和 token——一个显著改善输出质量但使 token 使用量翻三倍的技能，与一个既更好又更便宜的技能是不同的权衡。当每次运行完成时，记录 token 数量和持续时间：
 
 ```json timing.json
 {
@@ -121,27 +121,27 @@ Timing data lets you compare how much time and tokens the skill costs relative t
 ```
 
 <Tip>
-In Claude Code, when a subagent task finishes, the [task completion notification](https://platform.claude.com/docs/en/agent-sdk/typescript#sdk-task-notification-message) includes `total_tokens` and `duration_ms`. Save these values immediately — they aren't persisted anywhere else.
+在 Claude Code 中，当子智能体任务完成时，[任务完成通知](https://platform.claude.com/docs/en/agent-sdk/typescript#sdk-task-notification-message) 包含 `total_tokens` 和 `duration_ms`。立即保存这些值——它们不会持久化到其他地方。
 </Tip>
 
-## Writing assertions
+## 编写断言
 
-Assertions are verifiable statements about what the output should contain or achieve. Add them after you see your first round of outputs — you often don't know what "good" looks like until the skill has run.
+断言是关于输出应该包含或实现内容的可验证陈述。在你看到第一轮输出后添加它们——你通常直到技能运行后才知道“好”是什么样子的。
 
-Good assertions:
+良好的断言：
 
-- `"The output file is valid JSON"` — programmatically verifiable.
-- `"The bar chart has labeled axes"` — specific and observable.
-- `"The report includes at least 3 recommendations"` — countable.
+- `"输出文件是有效的 JSON"` — 可通过程序验证。
+- `"条形图有标记的轴"` — 具体且可观察。
+- `"报告包含至少 3 个建议"` — 可计数。
 
-Weak assertions:
+薄弱的断言：
 
-- `"The output is good"` — too vague to grade.
-- `"The output uses exactly the phrase 'Total Revenue: $X'"` — too brittle; correct output with different wording would fail.
+- `"输出很好"` — 太模糊，无法评分。
+- `"输出完全使用短语 'Total Revenue: $X'"` — 太脆弱；措辞不同的正确输出也会失败。
 
-Not everything needs an assertion. Some qualities — writing style, visual design, whether the output "feels right" — are hard to decompose into pass/fail checks. These are better caught during [human review](#reviewing-results-with-a-human). Reserve assertions for things that can be checked objectively.
+并非所有内容都需要断言。有些品质——写作风格、视觉设计、输出是否“感觉正确”——很难分解为通过/失败检查。这些最好在 [人工审查](#reviewing-results-with-a-human) 期间捕获。将断言保留给可以客观检查的内容。
 
-Add assertions to each test case in `evals/evals.json`:
+将断言添加到 `evals/evals.json` 中的每个测试用例：
 
 ```json evals/evals.json highlight={9-14}
 {
@@ -163,11 +163,11 @@ Add assertions to each test case in `evals/evals.json`:
 }
 ```
 
-## Grading outputs
+## 评分输出
 
-Grading means evaluating each assertion against the actual outputs and recording **PASS** or **FAIL** with specific evidence. The evidence should quote or reference the output, not just state an opinion.
+评分意味着针对实际输出评估每个断言，并记录 **通过** 或 **失败** 以及具体证据。证据应该引用或参考输出，而不仅仅是陈述意见。
 
-The simplest approach is to give the outputs and assertions to an LLM and ask it to evaluate each one. For assertions that can be checked by code (valid JSON, correct row count, file exists with expected dimensions), use a verification script — scripts are more reliable than LLM judgment for mechanical checks and reusable across iterations.
+最简单的方法是将输出和断言提供给 LLM 并要求它评估每一个。对于可以通过代码检查的断言（有效的 JSON、正确的行数、文件存在且具有预期尺寸），使用验证脚本——对于机械检查，脚本比 LLM 判断更可靠，并且可在迭代中重用。
 
 ```json grading.json
 {
@@ -202,18 +202,18 @@ The simplest approach is to give the outputs and assertions to an LLM and ask it
 }
 ```
 
-### Grading principles
+### 评分原则
 
-- **Require concrete evidence for a PASS.** Don't give the benefit of the doubt. If an assertion says "includes a summary" and the output has a section titled "Summary" with one vague sentence, that's a FAIL — the label is there but the substance isn't.
-- **Review the assertions themselves, not just the results.** While grading, notice when assertions are too easy (always pass regardless of skill quality), too hard (always fail even when the output is good), or unverifiable (can't be checked from the output alone). Fix these for the next iteration.
+- **要求通过的具体证据。** 不要给予怀疑的利益。如果断言说“包含摘要”而输出有一个标题为"Summary"的部分，只有一句模糊的句子，那是失败——标签在那里但实质不在。
+- **审查断言本身，而不仅仅是结果。** 在评分时，注意断言是否太容易（无论技能质量如何总是通过）、太难（即使输出良好也总是失败）或无法验证（仅从输出无法检查）。为下一次迭代修复这些问题。
 
 <Tip>
-For comparing two skill versions, try **blind comparison**: present both outputs to an LLM judge without revealing which came from which version. The judge scores holistic qualities — organization, formatting, usability, polish — on its own rubric, free from bias about which version "should" be better. This complements assertion grading: two outputs might both pass all assertions but differ significantly in overall quality.
+对于比较两个技能版本，尝试 **盲测**：将两个输出都呈现给 LLM 评判者，而不透露哪个来自哪个版本。评判者根据其自己的评分标准对整体品质——组织、格式、可用性、润色——进行评分，不受关于哪个版本“应该”更好的偏见影响。这补充了断言评分：两个输出可能都通过所有断言，但在整体质量上显著不同。
 </Tip>
 
-## Aggregating results
+## 汇总结果
 
-Once every run in the iteration is graded, compute summary statistics per configuration and save them to `benchmark.json` alongside the eval directories (e.g., `csv-analyzer-workspace/iteration-1/benchmark.json`):
+一旦迭代中的每次运行都完成评分，计算每个配置的汇总统计信息，并将它们保存到 `benchmark.json` 中，与评估目录放在一起（例如，`csv-analyzer-workspace/iteration-1/benchmark.json`）：
 
 ```json benchmark.json
 {
@@ -237,62 +237,62 @@ Once every run in the iteration is graded, compute summary statistics per config
 }
 ```
 
-The `delta` tells you what the skill costs (more time, more tokens) and what it buys (higher pass rate). A skill that adds 13 seconds but improves pass rate by 50 percentage points is probably worth it. A skill that doubles token usage for a 2-point improvement might not be.
+`delta` 告诉你技能的代价（更多时间、更多 token）以及它带来的收益（更高的通过率）。一个增加 13 秒但将通过率提高 50 个百分点的技能可能是值得的。一个使 token 用量加倍但仅提高 2 个百分点的技能可能不值得。
 
 <Note>
-Standard deviation (`stddev`) is only meaningful with multiple runs per eval. In early iterations with just 2-3 test cases and single runs, focus on the raw pass counts and the delta — the statistical measures become useful as you expand the test set and run each eval multiple times.
+标准差 (`stddev`) 仅在每次评估有多次运行时才有意义。在只有 2-3 个测试用例和单次运行的早期迭代中，关注原始通过计数和 delta —— 随着你扩展测试集并多次运行每个评估，统计措施会变得有用。
 </Note>
 
-## Analyzing patterns
+## 分析模式
 
-Aggregate statistics can hide important patterns. After computing the benchmarks:
+汇总统计可能会掩盖重要的模式。计算基准测试后：
 
-- **Remove or replace assertions that always pass in both configurations.** These don't tell you anything useful — the model handles them fine without the skill. They inflate the with-skill pass rate without reflecting actual skill value.
-- **Investigate assertions that always fail in both configurations.** Either the assertion is broken (asking for something the model can't do), the test case is too hard, or the assertion is checking for the wrong thing. Fix these before the next iteration.
-- **Study assertions that pass with the skill but fail without.** This is where the skill is clearly adding value. Understand *why* — which instructions or scripts made the difference?
-- **Tighten instructions when results are inconsistent across runs.** If the same eval passes sometimes and fails others (reflected as high `stddev` in the benchmark), the eval may be flaky (sensitive to model randomness), or the skill's instructions may be ambiguous enough that the model interprets them differently each time. Add examples or more specific guidance to reduce ambiguity.
-- **Check time and token outliers.** If one eval takes 3x longer than the others, read its execution transcript (the full log of what the model did during the run) to find the bottleneck.
+- **移除或替换在两种配置中始终通过的断言。** 这些不能告诉你任何有用的信息 —— 模型在没有技能的情况下也能很好地处理它们。它们虚高了带技能的通过率，而没有反映实际技能价值。
+- **调查在两种配置中始终失败的断言。** 要么是断言坏了（要求模型做不到的事情），要么是测试用例太难，要么是断言检查了错误的内容。在下次迭代之前修复这些问题。
+- **研究带技能通过但不带技能失败的断言。** 这是技能明显增加价值的地方。理解*为什么* —— 哪些指令或脚本起了作用？
+- **当运行结果不一致时收紧指令。** 如果同一个评估有时通过有时失败（在基准测试中反映为高 `stddev`），评估可能不稳定（对模型随机性敏感），或者技能的指令可能足够模糊，导致模型每次解释不同。添加示例或更具体的指导以减少模糊性。
+- **检查时间和 token 异常值。** 如果一个评估花费的时间是其他的 3 倍，阅读其执行记录（模型在运行期间所做的事情的完整日志）以找到瓶颈。
 
-## Reviewing results with a human
+## 与人工一起审查结果
 
-Assertion grading and pattern analysis catch a lot, but they only check what you thought to write assertions for. A human reviewer brings a fresh perspective — catching issues you didn't anticipate, noticing when the output is technically correct but misses the point, or spotting problems that are hard to express as pass/fail checks. For each test case, review the actual outputs alongside the grades.
+断言评分和模式分析能捕捉到很多问题，但它们只检查你想到要编写断言的内容。人工审查员带来全新的视角 —— 捕捉你没预料到的问题，注意到输出技术上正确但未切中要点时，或发现难以用通过/失败检查来表达的问题。对于每个测试用例，结合评分审查实际输出。
 
-Record specific feedback for each test case and save it in the workspace (e.g., as a `feedback.json` alongside the eval directories):
+记录每个测试用例的具体反馈，并将其保存在工作区中（例如，作为 `feedback.json` 与评估目录放在一起）：
 
 ```json feedback.json
 {
-  "eval-top-months-chart": "The chart is missing axis labels and the months are in alphabetical order instead of chronological.",
+  "eval-top-months-chart": "图表缺少轴标签，且月份按字母顺序排列而不是时间顺序。",
   "eval-clean-missing-emails": ""
 }
 ```
 
-"The chart is missing axis labels" is actionable; "looks bad" is not. Empty feedback means the output looked fine — that test case passed your review. During the [iteration step](#iterating-on-the-skill), focus your improvements on the test cases where you had specific complaints.
+"图表缺少轴标签" 是可操作的；"看起来不好" 则不是。空反馈意味着输出看起来没问题 —— 该测试用例通过了你的审查。在 [迭代步骤](#iterating-on-the-skill) 期间，将改进重点放在你有具体投诉的测试用例上。
 
-## Iterating on the skill
+## 迭代技能
 
-After grading and reviewing, you have three sources of signal:
+评分和审查后，你有三个信号来源：
 
-- **Failed assertions** point to specific gaps — a missing step, an unclear instruction, or a case the skill doesn't handle.
-- **Human feedback** points to broader quality issues — the approach was wrong, the output was poorly structured, or the skill produced a technically correct but unhelpful result.
-- **Execution transcripts** reveal *why* things went wrong. If the agent ignored an instruction, the instruction may be ambiguous. If the agent spent time on unproductive steps, those instructions may need to be simplified or removed.
+- **失败的断言** 指向具体的差距 ——  missing 步骤、不清楚的指令，或技能未处理的情况。
+- **人工反馈** 指向更广泛的质量问题 —— 方法错误、输出结构糟糕，或技能产生了技术上正确但无帮助的结果。
+- **执行记录** 揭示事情出错的*原因*。如果代理忽略了指令，指令可能模糊。如果代理花费时间在没有成效的步骤上，这些指令可能需要简化或移除。
 
-The most effective way to turn these signals into skill improvements is to give all three — along with the current `SKILL.md` — to an LLM and ask it to propose changes. The LLM can synthesize patterns across failed assertions, reviewer complaints, and transcript behavior that would be tedious to connect manually. When prompting the LLM, include these guidelines:
+将这些信号转化为技能改进的最有效方法是将所有这三个——连同当前的 `SKILL.md`——交给 LLM 并要求它提出更改。LLM 可以综合失败断言、审查员投诉和记录行为中的模式，这些模式手动连接会很繁琐。提示 LLM 时，包含以下指南：
 
-- **Generalize from feedback.** The skill will be used across many different prompts, not just the test cases. Fixes should address underlying issues broadly rather than adding narrow patches for specific examples.
-- **Keep the skill lean.** Fewer, better instructions often outperform exhaustive rules. If transcripts show wasted work (unnecessary validation, unneeded intermediate outputs), remove those instructions. If pass rates plateau despite adding more rules, the skill may be over-constrained — try removing instructions and see if results hold or improve.
-- **Explain the why.** Reasoning-based instructions ("Do X because Y tends to cause Z") work better than rigid directives ("ALWAYS do X, NEVER do Y"). Models follow instructions more reliably when they understand the purpose.
-- **Bundle repeated work.** If every test run independently wrote a similar helper script (a chart builder, a data parser), that's a signal to bundle the script into the skill's `scripts/` directory. See [Using scripts](/skill-creation/using-scripts) for how to do this.
+- **从反馈中概括。** 技能将用于许多不同的提示，而不仅仅是测试用例。修复应广泛解决根本问题，而不是为特定示例添加狭窄的补丁。
+- **保持技能精简。** 更少、更好的指令通常优于详尽的规则。如果记录显示浪费的工作（不必要的验证、不需要的中间输出），移除这些指令。如果尽管添加了更多规则通过率仍停滞不前，技能可能约束过多 —— 尝试移除指令，看看结果是否保持或改善。
+- **解释原因。** 基于推理的指令（“做 X，因为 Y 往往会导致 Z"）比僵硬的指令（“总是做 X，绝不做 Y"）效果更好。当模型理解目的时，它们更可靠地遵循指令。
+- **打包重复工作。** 如果每次测试运行都独立编写类似的辅助脚本（图表构建器、数据解析器），这是一个将脚本打包到技能的 `scripts/` 目录的信号。参见 [使用脚本](/skill-creation/using-scripts) 了解如何执行此操作。
 
-### The loop
+### 循环
 
-1. Give the eval signals and current `SKILL.md` to an LLM and ask it to propose improvements.
-2. Review and apply the changes.
-3. Rerun all test cases in a new `iteration-<N+1>/` directory.
-4. Grade and aggregate the new results.
-5. Review with a human. Repeat.
+1. 将评估信号和当前的 `SKILL.md` 交给 LLM 并要求它提出改进。
+2. 审查并应用更改。
+3. 在新的 `iteration-<N+1>/` 目录中重新运行所有测试用例。
+4. 评分并汇总新结果。
+5. 与人工一起审查。重复。
 
-Stop when you're satisfied with the results, feedback is consistently empty, or you're no longer seeing meaningful improvement between iterations.
+当你对结果满意时停止，反馈持续为空，或者你在迭代之间不再看到有意义的改进。
 
 <Tip>
-The [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) Skill automates much of this workflow — running evals, grading assertions, aggregating benchmarks, and presenting results for human review.
+[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) 技能自动化了这个工作流的许多部分 —— 运行评估、评分断言、汇总基准测试，并呈现结果供人工审查。
 </Tip>
