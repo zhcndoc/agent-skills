@@ -10,11 +10,11 @@ description: "如何改进你的技能描述，以便在相关提示词上可靠
 
 ## 技能触发是如何工作的
 
-代理使用 [渐进式披露](/what-are-skills#how-skills-work) 来管理上下文。启动时，它们只加载每个可用技能的 `name` 和 `description` —— 仅足以决定技能何时可能相关。当用户的任务与描述匹配时，代理将完整的 `SKILL.md` 读入上下文并遵循其指令。
+代理使用 [渐进式披露](/specification#progressive-disclosure) 来管理上下文。在启动时，它们只加载每个可用技能的 `name` 和 `description` —— 这刚好足以决定某个技能是否可能相关。当用户的任务与描述匹配时，代理会将完整的 `SKILL.md` 读入上下文并遵循其中的说明。
 
 这意味着描述承担了触发的全部负担。如果描述没有传达技能何时有用，代理就不会知道去使用它。
 
-一个重要的细微差别：代理通常只针对需要超出其单独处理能力的知识或能力的任务咨询技能。像“阅读此 PDF"这样的简单单步请求可能不会触发 PDF 技能，即使描述完全匹配，因为代理可以使用基本工具处理它。涉及专门知识的任务——不熟悉的 API、特定领域的工作流或不常见的格式——才是写得好的描述可以产生差异的地方。
+一个重要的细微差别：代理通常只会针对需要超出其单独处理能力的知识或能力的任务咨询技能。像“阅读此 PDF"这样的简单单步请求可能不会触发 PDF 技能，即使描述完全匹配，因为代理可以使用基本工具处理它。涉及专门知识的任务——不熟悉的 API、特定领域的工作流或不常见的格式——才是写得好的描述可以产生差异的地方。
 
 ## 编写有效的描述
 
@@ -179,14 +179,13 @@ description: Process CSV files.
 
 # 之后
 description: >
-  Analyze CSV and tabular data files — compute summary statistics,
-  add derived columns, generate charts, and clean messy data. Use this
-  skill when the user has a CSV, TSV, or Excel file and wants to
-  explore, transform, or visualize the data, even if they don't
-  explicitly mention "CSV" or "analysis."
+  分析 CSV 和表格数据文件——计算汇总统计、添加派生列、
+  生成图表并清理杂乱数据。当用户有 CSV、TSV 或 Excel 文件，
+  并希望探索、转换或可视化数据时使用此技能，即使他们没有
+  明确提及“CSV”或“analysis”。
 ```
 
-改进后的描述更具体地说明了技能的作用（汇总统计、衍生列、图表、清理），并且更广泛地说明了适用时机（CSV、TSV、Excel；即使没有明确的关键字）。
+改进后的描述更具体地说明了技能的作用（汇总统计、派生列、图表、清理），并且更广泛地说明了适用时机（CSV、TSV、Excel；即使没有明确的关键字）。
 
 ## 后续步骤
 

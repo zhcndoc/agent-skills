@@ -3,10 +3,9 @@
   Shuffles clients on each page load for fair exposure.
 */}
 export const LogoCarousel = ({clients}) => {
-
-  /* Shuffle clients on component mount */
   const [shuffled, setShuffled] = useState(clients);
 
+  /* Shuffle clients on component mount */
   useEffect(() => {
     const shuffle = (items) => {
       const copy = [...items];
@@ -19,6 +18,16 @@ export const LogoCarousel = ({clients}) => {
     setShuffled(shuffle(clients));
   }, []);
 
+  const doubled = [...shuffled, ...shuffled];
+
+  const GAP_PX = 48; // 3rem at the default 16px base
+  const PX_PER_SECOND = 40;
+  const cycleWidth = shuffled.reduce(
+    (sum, client) => sum + 150 * (client.scale || 1) + GAP_PX,
+    0,
+  );
+  const cycleDuration = cycleWidth / PX_PER_SECOND;
+
   const Logo = ({ client }) => (
     <a href={client.url} className="block no-underline border-none w-full h-full">
       <img className="block dark:hidden object-contain w-full h-full !my-0" src={client.lightSrc} alt={client.name} noZoom />
@@ -26,31 +35,15 @@ export const LogoCarousel = ({clients}) => {
     </a>
   );
 
-  const row1 = shuffled.filter((_, i) => i % 2 === 0);
-  const row2 = shuffled.filter((_, i) => i % 2 === 1);
-  const row1Doubled = [...row1, ...row1];
-  const row2Doubled = [...row2, ...row2];
-
   return (
-    <>
-      <div className="logo-carousel">
-        <div className="logo-carousel-track" style={{ animation: 'logo-scroll 50s linear infinite' }}>
-          {row1Doubled.map((client, i) => (
-            <div key={`${client.name}-${i}`} style={{ width: 150 * (client.scale || 1), maxWidth: "100%" }}>
-              <Logo client={client} />
-            </div>
-          ))}
-        </div>
+    <div className="logo-carousel">
+      <div className="logo-carousel-track" style={{ animation: `logo-scroll ${cycleDuration}s linear infinite` }}>
+        {doubled.map((client, i) => (
+          <div key={`${client.name}-${i}`} style={{ width: 150 * (client.scale || 1), maxWidth: "100%" }}>
+            <Logo client={client} />
+          </div>
+        ))}
       </div>
-      <div className="logo-carousel">
-        <div className="logo-carousel-track" style={{ animation: 'logo-scroll 60s linear infinite reverse' }}>
-          {row2Doubled.map((client, i) => (
-            <div key={`${client.name}-${i}`} style={{ width: 150 * (client.scale || 1), maxWidth: "100%" }}>
-              <Logo client={client} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
