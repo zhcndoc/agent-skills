@@ -59,7 +59,7 @@ metadata:
 
 必需的 `name` 字段：
 - 必须为 1-64 个字符
-- 仅可包含 unicode 小写字母数字字符（`a-z`）和连字符（`-`）
+- 仅可包含 Unicode 小写字母数字字符（`a-z`、`0-9`）和连字符（`-`）
 - 不得以连字符（`-`）开头或结尾
 - 不得包含连续连字符（`--`）
 - 必须与父目录名称匹配
@@ -226,7 +226,7 @@ allowed-tools: Bash(git:*) Bash(jq:*) Read
 在技能中引用其他文件时，使用相对于技能根目录的路径：
 
 ```markdown SKILL.md
-See [参考指南](references/REFERENCE.md) 以获取详情。
+参见 [参考指南](references/REFERENCE.md) 以获取详情。
 
 运行提取脚本：
 scripts/extract.py
